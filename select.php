@@ -1,4 +1,7 @@
 <?php
+// ベースカラーを緑に設定するかどうかの変数
+$baseColorGreen = true;
+
 // 0. SESSION開始！！
 session_start();
 require_once('funcs.php');
@@ -41,7 +44,7 @@ if ($status == false) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>フリーアンケート表示</title>
+    <title>Book List</title>
     <link rel="stylesheet" href="css/range.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -49,7 +52,28 @@ if ($status == false) {
             padding: 10px;
             font-size: 16px;
         }
-    </style>
+
+        <?php if ($baseColorGreen): ?>
+        /* ベースカラーを緑にするスタイル */
+            body {
+                background-color: #e9f5ee; /* 薄い緑色 */
+            }
+
+            .navbar-default {
+                background-color: #28a745; /* 明るい緑色 */
+                border-color: #28a745; /* 濃い緑色 */
+            }
+
+            .navbar-default .navbar-brand {
+                color: white;
+            }
+        /* ここに他の緑色スタイルを追加 */
+        <?php endif; ?>
+
+        </style>
+
+
+
 </head>
 
 <body id="main">

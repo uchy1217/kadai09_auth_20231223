@@ -10,7 +10,7 @@ function h($str)
 function db_conn()
 {
     try {
-        $db_name = 'gs_db4_book';    //データベース名
+        $db_name = 'gs_db5_book';    //データベース名
         $db_id   = 'root';      //アカウント名
         $db_pw   = '';      //パスワード：XAMPPはパスワード無しに修正してください。
         $db_host = 'localhost'; //DBホスト
@@ -49,4 +49,63 @@ if ( !isset($_SESSION['chk_ssid']) || $_SESSION['chk_ssid'] !== session_id()){
 }
 
 
-// ログインチェク処理 loginCheck()
+// chatGPT
+function getGptSummary($content) {
+    $req_question =  "次の内容を100文字で要約して:" . $content;
+    $result = array();
+    
+    // APIキー
+    $apiKey = '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';
+    
+    //openAI APIエンドポイント
+    $endpoint = 'https://api.openai.com/v1/chat/completions';
+    
+    $headers = array(
+      'Content-Type: application/json',
+      'Authorization: Bearer ' . $apiKey
+    );
+    
+    // リクエストのペイロード
+    $data = array(
+      'model' => 'gpt-4-1106-preview',
+      'messages' => [
+        [
+        "role" => "system",
+        "content" => "日本語で応答してください"
+        ],
+        [
+        "role" => "user",
+        "content" => $req_question
+        ]
+      ]
+    );
+    
+    // cURLリクエストを初期化
+    $ch = curl_init();
+    
+    // cURLオプションを設定
+    curl_setopt($ch, CURLOPT_URL, $endpoint);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    
+    // APIにリクエストを送信
+    $response = curl_exec($ch);
+    
+    // cURLリクエストを閉じる
+    curl_close($ch);
+    
+    // 応答を解析
+    $result = json_decode($response, true);
+    
+    // 生成されたテキストを取得
+    $text = $result['choices'][0]['message']['content'];
+    
+    var_dump($text);
+
+    return $text;
+    }
+
+

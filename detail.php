@@ -17,6 +17,9 @@ if ($status == false) {
 } else {
     $row = $stmt->fetch();
 }
+
+$baseColorGreen = true;
+
 ?>
 
 
@@ -33,6 +36,25 @@ if ($status == false) {
             padding: 10px;
             font-size: 16px;
         }
+
+        <?php if ($baseColorGreen): ?>
+        /* ベースカラーを緑にするスタイル */
+        body {
+            background-color: #e9f5ee; /* 薄い緑色 */
+        }
+
+        .navbar-default {
+            background-color: #28a745; /* 明るい緑色 */
+            border-color: #28a745; /* 濃い緑色 */
+        }
+
+        .navbar-default .navbar-brand {
+            color: white;
+        }
+
+        /* ここに他の緑色スタイルを追加 */
+        <?php endif; ?>
+
     </style>
 </head>
 
@@ -55,6 +77,7 @@ if ($status == false) {
                 <legend>[編集]</legend>
                 <label>名前：<input type="text" name="name" value="<?= $row['name'] ?>"></label><br>
                 <label>URL：<input type="text" name="url" value="<?= $row['url'] ?>"></label><br>
+                <label>Publisher：<input type="text" name="publisher" value="<?= $row['publisher'] ?>"></label><br>
                 <label><textArea name="content" rows="4" cols="40"><?= $row['content'] ?></textArea></label><br>
                 
                     <?php
